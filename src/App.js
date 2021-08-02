@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import CastleApp from './components/castle-app/CastleApp';
 //import logo from './logo.svg';
 import './App.css';
+import './bootstrap.css'
 
 class App extends Component {
   render() {

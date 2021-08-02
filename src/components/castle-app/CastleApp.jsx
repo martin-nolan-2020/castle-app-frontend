@@ -18,6 +18,8 @@ class CastleApp extends Component{
                     <Route path="/login" component={LoginComponent}/>
                     <Route path="/welcome/:name" component={WelcomeComponent}/>
                     <Route path="/castles" component={ListCastlesComponent}/>
+                    <Route path="/logout" component={LogoutComponent}/>
+                    
                     <Route component={ErrorComponent}/>
                 </Switch>
 
@@ -49,34 +51,36 @@ class ListCastlesComponent extends Component{
         return(
             <div>
                 <h1>List of Castles</h1>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Description</th>
-                            <th>Length</th>
-                            <th>Price</th>
-                        </tr>
-                    </thead>
-                    {/* loop through each castle and display it in a table row <tr></tr> */}
-                    <tbody>
-                        {
-                            this.state.castles.map(
-                                element => 
-                                    <tr>
-                                        <td>{element.id}</td>
-                                        <td>{element.description}</td>
-                                        <td>{element.length}</td>
-                                        <td>{element.price}</td>
-                                    </tr>
-                            )
-                        }
-                        {/* <tr>
-                            <td>{this.state.castles[1].id}</td>
-                            <td>{this.state.castles[1].description}</td>
-                        </tr> */}
-                    </tbody>
-                </table>
+                <div className="container">
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Description</th>
+                                <th>Length</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        {/* loop through each castle and display it in a table row <tr></tr> */}
+                        <tbody>
+                            {
+                                this.state.castles.map(
+                                    element => 
+                                        <tr>
+                                            <td>{element.id}</td>
+                                            <td>{element.description}</td>
+                                            <td>{element.length}</td>
+                                            <td>{element.price}</td>
+                                        </tr>
+                                )
+                            }
+                            {/* <tr>
+                                <td>{this.state.castles[1].id}</td>
+                                <td>{this.state.castles[1].description}</td>
+                            </tr> */}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         )
     }
@@ -86,10 +90,17 @@ class WelcomeComponent extends Component{
     render(){
         return(
             <div>
-                <p>This is the welcome page. Welcome {this.props.match.params.name}</p>
-                <p>View castles <Link to="/castles">here</Link></p>
-
+                <h1>Welcome!</h1>
+                <div className="conatiner">
+                    Logged in. Welcome {this.props.match.params.name} to the app. Manage castles <Link to="/castles">here</Link>.
+                </div>
             </div>
+
+            // <div>
+            //     <p>This is the welcome page. Welcome {this.props.match.params.name}</p>
+            //     <p>View castles <Link to="/castles">here</Link></p>
+
+            // </div>
         )
     }
 }
@@ -97,10 +108,23 @@ class WelcomeComponent extends Component{
 class HeaderComponent extends Component{
     render(){
         return(
-            <div>
-                This is the header component
-                <hr></hr>
-            </div>
+            <header>
+                <nav className="navbar navbar-expand-md navbar-dark bg-dark">
+                    <div><a href="https://github.com/martin-nolan-2020">Github</a></div>
+                        <ul className="navbar-nav">
+                            <li><Link to="/welcome/un" className="nav-link">Home</Link></li>
+                            <li><Link to="/castles" className="nav-link">Castles</Link></li>
+                        </ul>
+                        <ul className="navbar-nav navbar-collapse justify-content-end">
+                            <li><Link to="/login" className="nav-link">Login</Link></li>
+                            <li><Link to="/logout" className="nav-link">Logout</Link></li>
+                        </ul>
+                </nav>
+            </header>
+            // <div>
+            //     This is the header component
+            //     <hr></hr>
+            // </div>
         )
     }
 }
@@ -108,9 +132,24 @@ class HeaderComponent extends Component{
 class FooterComponent extends Component{
     render(){
         return(
+            <footer className="footer">
+                <span className="text-muted">All Rights Reserved</span>
+
+            </footer>
+            // <div>
+            //     <hr></hr>
+            //     This is the footer component    
+            // </div>
+        )
+    }
+}
+
+class LogoutComponent extends Component{
+    render(){
+        return(
             <div>
-                <hr></hr>
-                This is the footer component    
+                <h1>You have successfully logged out.</h1>
+                <div className="container">Thank you.</div>
             </div>
         )
     }
@@ -142,16 +181,18 @@ class LoginComponent extends Component{
     render(){
         return(
             <div>      
-                Username: <input type="text" name="username" value={this.state.username} onChange={this.handleChange}/>
-                Password: <input type="password" name="password" value={this.state.password} onChange={this.handleChange}/>
-                <button onClick={this.loginClicked}>Login</button>
+                <h1>Login</h1>
+                <div className="container">
+                    Username: <input type="text" name="username" value={this.state.username} onChange={this.handleChange}/>
+                    Password: <input type="password" name="password" value={this.state.password} onChange={this.handleChange}/>
+                    <button className="btn btn-success" onClick={this.loginClicked}>Login</button>
 
-                {/* && operator can be used for conditional rendering as done here */}
-                {this.state.loginFailed && <p>A bad login!</p>}
-                {this.state.showSuccessMsg && <p>A successful login!</p>}
-                {/* <ShowInvalidLogin loginFailed={this.state.loginFailed}/>
-                <ShowValidLogin showSuccessMsg={this.state.showSuccessMsg}/> */}
-                
+                    {/* && operator can be used for conditional rendering as done here */}
+                    {this.state.loginFailed && <div className="alert alert-warning">A bad login!</div>}
+                    {this.state.showSuccessMsg && <div>A successful login!</div>}
+                    {/* <ShowInvalidLogin loginFailed={this.state.loginFailed}/>
+                    <ShowValidLogin showSuccessMsg={this.state.showSuccessMsg}/> */}
+                </div>
             </div>
         )
     }
