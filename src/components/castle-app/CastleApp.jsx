@@ -9,6 +9,9 @@ class CastleApp extends Component{
             <h2>a smaller heading</h2> */}
 
             <Router>
+
+                <HeaderComponent/>
+
                 {/* the Switch means only one Route can be rendered at any point in time */}
                 <Switch>
                     <Route path="/" exact component={LoginComponent}/>
@@ -17,6 +20,8 @@ class CastleApp extends Component{
                     <Route path="/castles" component={ListCastlesComponent}/>
                     <Route component={ErrorComponent}/>
                 </Switch>
+
+                <FooterComponent/>
             </Router>
 
             {/* <LoginComponent/>
@@ -88,6 +93,29 @@ class WelcomeComponent extends Component{
         )
     }
 }
+
+class HeaderComponent extends Component{
+    render(){
+        return(
+            <div>
+                This is the header component
+                <hr></hr>
+            </div>
+        )
+    }
+}
+
+class FooterComponent extends Component{
+    render(){
+        return(
+            <div>
+                <hr></hr>
+                This is the footer component    
+            </div>
+        )
+    }
+}
+
 
 function ErrorComponent(){
     return(
