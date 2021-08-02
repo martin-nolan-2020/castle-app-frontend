@@ -1,28 +1,160 @@
 import React, {Component} from 'react'
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 
 class CastleApp extends Component{
     render(){
         return(
             <div className="CastleApp">
-            <h1>a heading</h1>
-            <h2>a smaller heading</h2>
-            <LoginComponent/>
+            {/* <h1>a heading</h1>
+            <h2>a smaller heading</h2> */}
+
+            <Router>
+                {/* the Switch means only one Route can be rendered at any point in time */}
+                <Switch>
+                    <Route path="/" exact component={LoginComponent}/>
+                    <Route path="/login" component={LoginComponent}/>
+                    <Route path="/welcome/:name" component={WelcomeComponent}/>
+                    <Route path="/castles" component={ListCastlesComponent}/>
+                    <Route component={ErrorComponent}/>
+                </Switch>
+            </Router>
+
+            {/* <LoginComponent/>
+            <WelcomeComponent/> */}
             </div>
         )
         
     }
 }
 
-class LoginComponent extends Component{
+class ListCastlesComponent extends Component{
+    constructor(props){
+        super(props)
+        this.state = {
+            castles : 
+            [
+                {id:1, description: "Red castle"},
+                {id:2, description: "Blue castle"},
+                {id:3, description: "Green castle"},
+            ]
+        }
+    }
+
     render(){
         return(
             <div>
-                Username: <input type="text" name="username"/>
-                Password: <input type="password" name="password"/>
-                <button>Login</button>
+                <h1>List of Castles</h1>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{this.state.castles[1].id}</td>
+                            <td>{this.state.castles[1].description}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         )
     }
 }
+
+class WelcomeComponent extends Component{
+    render(){
+        return(
+            <div>
+                <p>This is the welcome page. Welcome {this.props.match.params.name}</p>
+                <p>para2</p>
+
+            </div>
+        )
+    }
+}
+
+function ErrorComponent(){
+    return(
+        <div>An error has occurred</div>
+    )
+}
+
+class LoginComponent extends Component{
+    constructor(props){
+        super(props)
+        this.state = {
+            username: "",
+            password: "",
+            loginFailed: false,
+            showSuccessMsg: false 
+        }
+
+        // this.handleUnameChange = this.handleUnameChange.bind(this)
+        // this.handlePWChange = this.handlePWChange.bind(this)
+        this.handleChange = this.handleChange.bind(this)
+        this.loginClicked = this.loginClicked.bind(this)
+    }
+
+    render(){
+        return(
+            <div>      
+                Username: <input type="text" name="username" value={this.state.username} onChange={this.handleChange}/>
+                Password: <input type="password" name="password" value={this.state.password} onChange={this.handleChange}/>
+                <button onClick={this.loginClicked}>Login</button>
+
+                {/* && operator can be used for conditional rendering as done here */}
+                {this.state.loginFailed && <p>A bad login!</p>}
+                {this.state.showSuccessMsg && <p>A successful login!</p>}
+                {/* <ShowInvalidLogin loginFailed={this.state.loginFailed}/>
+                <ShowValidLogin showSuccessMsg={this.state.showSuccessMsg}/> */}
+                
+            </div>
+        )
+    }
+
+    //want to handle all changes - so create a generic function
+    //name="username" in render method --> Username --> input type must match constructor(props) --> this.state.username.
+    //"username"==="username" and "password"==="password" so both work 
+    handleChange(event){
+        console.log("event.target.name --> " + event.target.name + "; event.target.value --> "+ event.target.value)
+        this.setState(
+            {
+                //square brakcets needed for name of object variable, which is a constant
+                [event.target.name]: 
+                    event.target.value
+            }
+        )
+    }
+
+    loginClicked(){
+        if(this.state.username==="un" && this.state.password==="pw"){
+            console.log("Good username and password")
+            // redirect Routing to welcome page:
+            this.props.history.push(`/welcome/${this.state.username}`)
+
+            // this.setState({showSuccessMsg:true})
+            // this.setState({loginFailed:false})
+            console.log(this.state.showSuccessMsg)
+        } else{
+            console.log("Bad username and password")
+            this.setState({showSuccessMsg:false})
+            this.setState({loginFailed:true})
+        }
+    }
+}
+
+// function ShowInvalidLogin(props){
+//     if(props.loginFailed){
+//         return <p>Bad login!</p>
+//     } else return null
+// }
+
+// function ShowValidLogin(props){
+//     if(props.showSuccessMsg){
+//         return <p>Successful Login</p>
+//     } else return null
+// }
 
 export default CastleApp;

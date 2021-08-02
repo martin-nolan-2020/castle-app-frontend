@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CastleApp from './components/castle-app/CastleApp';
-import logo from './logo.svg';
+//import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
@@ -21,7 +21,7 @@ class App extends Component {
             Learn React
         </a>
         </header> */}
-        Hello.
+        {/* Hello. */}
         <CastleApp/>
       </div>
     );
