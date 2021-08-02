@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom'
 
 class CastleApp extends Component{
     render(){
@@ -33,9 +33,9 @@ class ListCastlesComponent extends Component{
         this.state = {
             castles : 
             [
-                {id:1, description: "Red castle"},
-                {id:2, description: "Blue castle"},
-                {id:3, description: "Green castle"},
+                {id:1, description: "Red castle", length: 40, price: 150},
+                {id:2, description: "Blue castle", length: 50, price: 180},
+                {id:3, description: "Green castle", length: 45, price: 160},
             ]
         }
     }
@@ -49,13 +49,27 @@ class ListCastlesComponent extends Component{
                         <tr>
                             <th>ID</th>
                             <th>Description</th>
+                            <th>Length</th>
+                            <th>Price</th>
                         </tr>
                     </thead>
+                    {/* loop through each castle and display it in a table row <tr></tr> */}
                     <tbody>
-                        <tr>
+                        {
+                            this.state.castles.map(
+                                element => 
+                                    <tr>
+                                        <td>{element.id}</td>
+                                        <td>{element.description}</td>
+                                        <td>{element.length}</td>
+                                        <td>{element.price}</td>
+                                    </tr>
+                            )
+                        }
+                        {/* <tr>
                             <td>{this.state.castles[1].id}</td>
                             <td>{this.state.castles[1].description}</td>
-                        </tr>
+                        </tr> */}
                     </tbody>
                 </table>
             </div>
@@ -68,7 +82,7 @@ class WelcomeComponent extends Component{
         return(
             <div>
                 <p>This is the welcome page. Welcome {this.props.match.params.name}</p>
-                <p>para2</p>
+                <p>View castles <Link to="/castles">here</Link></p>
 
             </div>
         )
