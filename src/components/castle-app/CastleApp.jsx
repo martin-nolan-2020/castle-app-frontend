@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom'
+import AuthenticationService from './AuthenticationService.js'
 
 class CastleApp extends Component{
     render(){
@@ -214,6 +215,7 @@ class LoginComponent extends Component{
     loginClicked(){
         if(this.state.username==="un" && this.state.password==="pw"){
             console.log("Good username and password")
+            AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password)
             // redirect Routing to welcome page:
             this.props.history.push(`/welcome/${this.state.username}`)
 
