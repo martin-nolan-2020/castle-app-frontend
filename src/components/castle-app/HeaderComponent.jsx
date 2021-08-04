@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { withRouter } from 'react-router';
-import {BrowserRouter as Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import AuthenticationService from './AuthenticationService.js'
 
 
@@ -113,4 +113,4 @@ class HeaderComponent extends Component{
 }
 
 export default withRouter(HeaderComponent)
-//withRouter allows header to update without having to refresh browser, after each new page is clicked
+//withRouter allows header to update without having to refresh browser, i.e. after each new page is clicked
