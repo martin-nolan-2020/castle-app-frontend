@@ -9,7 +9,7 @@ import axios from "axios";
 // 	}
 
 
-class HelloWorldService{
+class CastleBeanService{
 
     executeCastleBeanService(){
         // direct call to the CastleManager microservice on port 8100
@@ -24,4 +24,4 @@ class HelloWorldService{
 
 
 //any package that imports this class will get an instance due to "new" creating an object
-export default new HelloWorldService();
+export default new CastleBeanService();
