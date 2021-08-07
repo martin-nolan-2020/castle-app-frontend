@@ -89,10 +89,10 @@ class WelcomeComponent extends Component{
 
     retrieveCastleBeanPathVariableService(){
         CastleBeanPathVariableService.executeCastleBeanService(this.state.id)
-        // .then(response => this
-        //     .setState({castleBeanDesc:response.data.description})
-        //     //.setState({price:response.data.price})
-        // )
+        .then(response => this
+            .setState({castleBeanDesc:response.data.description})
+            //.setState({price:response.data.price})
+        )
         .then(response => console.log(response))
         .then(response => this
             .setState({showSomethingWentWrong:false})
@@ -101,11 +101,14 @@ class WelcomeComponent extends Component{
         
     }
 
+    //.setState({castleBeanDesc:this.state.castleBeanDesc+" (for a hard coded date of 2017-02-23)"})
+
     handleError(error){
         console.log(error.response.data.msg)
-        this.setState({backendError:error.response.data.msg})
+        this.setState({backendError:error.response.data.msg+" (for a hard coded date of 2017-02-23)"})
         this.setState({showSomethingWentWrong:true})
         this.setState({castleBeanDesc:""})
+        //this.setState({castleBeanDesc:""})
     }
 
     retrieveCastleBean(){

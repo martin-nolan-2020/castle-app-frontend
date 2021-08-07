@@ -1,19 +1,39 @@
 import React, {Component} from 'react'
+import CastleDataService from '../../api/castles/CastleDataService'
 
 class ListCastlesComponent extends Component{
+
+
+
     constructor(props){
         super(props)
         this.state = {
             castles : 
             [
-                {id:1, description: "Red castle", length: 40, price: 150},
-                {id:2, description: "Blue castle", length: 50, price: 180},
-                {id:3, description: "Green castle", length: 45, price: 160},
-            ]
+                {id:1, description: "Hard coded into frontend", length: 99, price: 999},
+                // {id:2, description: "Blue castle", length: 50, price: 180},
+                // {id:3, description: "Green castle", length: 45, price: 160},
+            ],
+            //castles2: [CastleDataService.retrieveAllCastles()]
         }
+    }
+    
+    componentDidMount(){
+        //CastleDataService.retrieveAllCastles().
+        CastleDataService.retrieveAllCastles()
+            //.then(response => console.log(response.data))    
+            .then(response => this.setState({castles:response.data}))
+
     }
 
     render(){
+
+        // //CastleDataService.retrieveAllCastles().
+        // CastleDataService.retrieveAllCastles()
+        //     //.then(response => console.log(response.data))    
+        //     .then(response => this.setState({castles:response.data}))
+            
+
         return(
             <div>
                 <h1>List of Castles</h1>
@@ -29,6 +49,7 @@ class ListCastlesComponent extends Component{
                         </thead>
                         {/* loop through each castle and display it in a table row <tr></tr> */}
                         <tbody>
+                            
                             {
                                 this.state.castles.map(
                                     element => 

@@ -18,7 +18,7 @@ class CastleBeanPathVariableService{
         console.log("executeCastleBeanPathVariableService");
 
         //returns a Promise
-        //return axios.get(`http://localhost:8100/castles/${id}`)
+        //return axios.get(`http://localhost:8765/castles/${id}`)
         //http://localhost:8765/castles-with-bookings-feign/1/date/2017-02-23
         return axios.get(`http://localhost:8765/castles-with-bookings-feign/${id}/date/2017-02-23`)
     }
