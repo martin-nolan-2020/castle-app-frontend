@@ -27,8 +27,10 @@ class ListCastlesComponent extends Component{
             ],
         }
 
-        this.deleteCastle = this.deleteCastle.bind(this)
+        this.deleteCastleClicked = this.deleteCastleClicked.bind(this)
         this.refreshCastleList = this.refreshCastleList.bind(this)
+        this.updateACastleClicked = this.updateACastleClicked.bind(this)
+        this.addCastleClicked = this.addCastleClicked.bind(this)
     }
     
     // The componentDidMount() method allows us to execute the React code when the component is already placed 
@@ -42,7 +44,7 @@ class ListCastlesComponent extends Component{
 
     }
 
-    deleteCastle(id){
+    deleteCastleClicked(id){
         console.log('id -> ' + id)
         CastleDataService.deleteCastleById(id)
             //.then(response => console.log(response))
@@ -63,6 +65,16 @@ class ListCastlesComponent extends Component{
             )
     }
 
+    updateACastleClicked(id){
+        console.log("updateACastle + id: " + id)
+        this.props.history.push(`/castle/${id}`)
+    }
+
+    addCastleClicked(){
+        console.log("addCastleClicked")
+        this.props.history.push(`/castle/-1`)
+    }
+
     render(){
             
         return(
@@ -74,11 +86,13 @@ class ListCastlesComponent extends Component{
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>delete</th>
+                                
                                 <th>Description</th>
                                 <th>Length</th>
                                 <th>Price</th>
                                 <th>Name</th>
+                                <th>Update</th>
+                                <th>Delete</th>
                                 {/* <th>Notes</th> */}
                             </tr>
                         </thead>
@@ -92,11 +106,13 @@ class ListCastlesComponent extends Component{
                                         // Warning: Each child in a list should have a unique "key" prop.
                                         <tr key={element.id}>
                                             <td>{element.id}</td>
-                                            <td><button className="btn btn-warning" onClick={() => this.deleteCastle(element.id)} >delete</button></td>
+                                            
                                             <td>{element.description}</td>
                                             <td>{element.length}</td>
                                             <td>{element.price}</td>
                                             <td>{element.name}</td>
+                                            <td><button className="btn btn-success" onClick={() => this.updateACastleClicked(element.id)}>Update</button></td>
+                                            <td><button className="btn btn-warning" onClick={() => this.deleteCastleClicked(element.id)} >Delete</button></td>
                                             {/* <td> 
                                                 {
                                                     element.notes.map(
@@ -114,6 +130,9 @@ class ListCastlesComponent extends Component{
                             </tr> */}
                         </tbody>
                     </table>
+                    <div className="row">
+                        <button className="btn btn-success" onClick={this.addCastleClicked}>Add</button>
+                    </div>
 
                 </div>
             </div>

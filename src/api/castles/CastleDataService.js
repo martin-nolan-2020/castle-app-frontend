@@ -17,8 +17,11 @@ class CastleDataService{
     } 
 
     deleteCastleById(id){
-        //return axios.delete(`http://localhost:8765/castles/${id}`)
-        return axios.delete(`https://vast-escarpment-00752.herokuapp.com/http://localhost:8765/castles/${id}`)
+        return axios.delete(`http://localhost:8765/castles/${id}`)
+
+        //return axios.delete(`https://vast-escarpment-00752.herokuapp.com/http://localhost:8765/castles/${id}`)
+        //https://stackoverflow.com/questions/43871637/no-access-control-allow-origin-header-is-present-on-the-requested-resource-whe
+
         //return axios.delete(`http://localhost:8765/castles/${id}`,config)
         // return axios.delete(`http://localhost:8765/castles/${id}`,
         //                         {headers: {'Access-Control-Allow-Origin': '*',
@@ -27,6 +30,26 @@ class CastleDataService{
         //                                  }
         //                         }
         //                     )
+    }
+
+    retrieveCastleById(id){
+        return axios.get(`http://localhost:8765/castles/${id}`)
+    }
+
+    updateACastle(id, castle){
+        //below works when directly interacting with castleManager microservice on port 8100
+        //return axios.put(`http://localhost:8100/castles/${id}`, castle)
+
+        //going through the API gateway i.e. port 8765 does not work for PUT (same problem as delete)
+        //Console output:
+        //2:1 Access to XMLHttpRequest at 'http://localhost:8765/castles/2' from origin 'http://localhost:4200' has
+        // been blocked by CORS policy: Response to preflight request doesn't pass access control check: 
+        //No 'Access-Control-Allow-Origin' header is present on the requested resource.
+        return axios.put(`http://localhost:8765/castles/${id}`, castle)
+    }
+
+    addACastle(castle){
+        return axios.post(`http://localhost:8765/castles`, castle)
     }
 }
 

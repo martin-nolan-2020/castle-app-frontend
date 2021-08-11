@@ -9,6 +9,7 @@ import FooterComponent from './FooterComponent.jsx'
 import LogoutComponent from './LogoutComponent.jsx'
 import ListCastlesComponent from './ListCastlesComponent.jsx'
 import ErrorComponent from './ErrorComponent.js'
+import CastleComponent from './CastleComponent.jsx'
 
 class CastleApp extends Component{
     render(){
@@ -25,9 +26,11 @@ class CastleApp extends Component{
                 <Switch>
                     <Route path="/" exact component={LoginComponent}/>
                     <Route path="/login" component={LoginComponent}/>
+                    <AuthenticatedRoute path="/castle/:id" component={CastleComponent}/>
                     <AuthenticatedRoute path="/welcome/:name" component={WelcomeComponent}/>
                     <AuthenticatedRoute path="/castles" component={ListCastlesComponent}/>
                     <AuthenticatedRoute path="/logout" component={LogoutComponent}/>
+
                     
                     <Route component={ErrorComponent}/>
                 </Switch>
