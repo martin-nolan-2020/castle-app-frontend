@@ -75,6 +75,11 @@ class ListCastlesComponent extends Component{
         this.props.history.push(`/castle/-1`)
     }
 
+    checkIfBookedClicked(id){
+        console.log("checkIfBookedClicked")
+        this.props.history.push(`/date-checker/${id}`)
+    }
+
     render(){
             
         return(
@@ -86,13 +91,14 @@ class ListCastlesComponent extends Component{
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                
+                                <th>Image</th>
                                 <th>Description</th>
                                 <th>Length</th>
                                 <th>Price</th>
                                 <th>Name</th>
                                 <th>Update</th>
                                 <th>Delete</th>
+                                <th>Check If Booked</th>
                                 {/* <th>Notes</th> */}
                             </tr>
                         </thead>
@@ -106,13 +112,14 @@ class ListCastlesComponent extends Component{
                                         // Warning: Each child in a list should have a unique "key" prop.
                                         <tr key={element.id}>
                                             <td>{element.id}</td>
-                                            
+                                            <td><img src={element.imageurl}></img></td>
                                             <td>{element.description}</td>
                                             <td>{element.length}</td>
                                             <td>{element.price}</td>
                                             <td>{element.name}</td>
                                             <td><button className="btn btn-success" onClick={() => this.updateACastleClicked(element.id)}>Update</button></td>
                                             <td><button className="btn btn-warning" onClick={() => this.deleteCastleClicked(element.id)} >Delete</button></td>
+                                            <td><button className="btn btn-danger" onClick={() => this.checkIfBookedClicked(element.id)} >Check If Booked</button></td>
                                             {/* <td> 
                                                 {
                                                     element.notes.map(

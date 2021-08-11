@@ -51,6 +51,12 @@ class CastleDataService{
     addACastle(castle){
         return axios.post(`http://localhost:8765/castles`, castle)
     }
+
+    checkIfCastleBookedByDate(id, date){
+        //return axios.get(`http://localhost:8765/castles-with-bookings-feign/${id}/date/${date}`)
+        console.log(date)
+        return axios.get(`http://localhost:8765/castles-with-bookings-feign/${id}/date/${date}`)
+    }
 }
 
 export default new CastleDataService();
