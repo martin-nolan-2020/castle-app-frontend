@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import CastleDataService from '../../api/castles/CastleDataService'
+import App from '../../App.css'
 
 
 // //const express = require("express")
@@ -80,6 +81,11 @@ class ListCastlesComponent extends Component{
         this.props.history.push(`/date-checker/${id}`)
     }
 
+    makeBookingClicked(id){
+        console.log("makeBookingClicked: " + id)
+        this.props.history.push(`/make-booking/${id}`)
+    }
+
     render(){
             
         return(
@@ -99,6 +105,7 @@ class ListCastlesComponent extends Component{
                                 <th>Update</th>
                                 <th>Delete</th>
                                 <th>Check If Booked</th>
+                                <th>Make Booking</th>
                                 {/* <th>Notes</th> */}
                             </tr>
                         </thead>
@@ -112,7 +119,7 @@ class ListCastlesComponent extends Component{
                                         // Warning: Each child in a list should have a unique "key" prop.
                                         <tr key={element.id}>
                                             <td>{element.id}</td>
-                                            <td><img src={element.imageurl}></img></td>
+                                            <td><img src={element.imageurl} className="photo"></img></td>
                                             <td>{element.description}</td>
                                             <td>{element.length}</td>
                                             <td>{element.price}</td>
@@ -120,6 +127,7 @@ class ListCastlesComponent extends Component{
                                             <td><button className="btn btn-success" onClick={() => this.updateACastleClicked(element.id)}>Update</button></td>
                                             <td><button className="btn btn-warning" onClick={() => this.deleteCastleClicked(element.id)} >Delete</button></td>
                                             <td><button className="btn btn-danger" onClick={() => this.checkIfBookedClicked(element.id)} >Check If Booked</button></td>
+                                            <td><button className="btn btn-primary" onClick={() => this.makeBookingClicked(element.id)} >Make Booking</button></td>
                                             {/* <td> 
                                                 {
                                                     element.notes.map(

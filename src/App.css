@@ -45,3 +45,8 @@
   background-color: #343a40
   ;
 }
+
+.photo {
+  height: 80px;
+  width: 100px;
+}

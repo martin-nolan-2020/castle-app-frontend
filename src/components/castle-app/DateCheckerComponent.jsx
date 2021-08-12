@@ -7,6 +7,7 @@ import CastleDataService from '../../api/castles/CastleDataService'
 
 const DateCheckerComponent = (props) => {
     const [selectedDate, setSelectedDate] = useState(new Date()) 
+    const [message, setMessage] = useState("blank")
 
     return (
         <div>
@@ -24,29 +25,53 @@ const DateCheckerComponent = (props) => {
             />
             <br></br>
             <br></br>
+
             <button className="btn btn-success" onClick={() => checkDateForCastleClicked(props.match.params.id,selectedDate)}>Check if Castle with ID {props.match.params.id} is booked</button>
+            <div>{message}</div>
         </div>
     )
 
+    function checkDateForCastleClicked(id,selectedDate){
+        console.log("checkDateForCastleClicked--> id --> " + id)
+        //let yearMonthDay = selectedDate.
+        let dayOfMonth = selectedDate.getDate()
+        let monthOfYear = selectedDate.getMonth()+1
+        if(monthOfYear<10) monthOfYear = "0"+monthOfYear
+        let fullYear = selectedDate.getFullYear()
+        console.log("selectedDate --> " + selectedDate)
+        console.log("dayOfMonth --> " + dayOfMonth)
+        console.log("monthOfYear --> " + monthOfYear)
+        console.log("fullYear --> " + fullYear)
+        let backendFormattedDate = fullYear+"-"+monthOfYear+"-"+dayOfMonth
+        console.log("backendFormattedDate --> " + backendFormattedDate)
+    
+        CastleDataService.checkIfCastleBookedByDate(id,backendFormattedDate)
+            //.then(response => console.log(response.data.bookedOrAvailable))
+            .then(response => setMessage(response.data.bookedOrAvailable))
+    
+        
+    }
 
 }
 
-function checkDateForCastleClicked(id,selectedDate){
-    console.log("checkDateForCastleClicked--> id --> " + id)
-    //let yearMonthDay = selectedDate.
-    let dayOfMonth = selectedDate.getDate()
-    let monthOfYear = selectedDate.getMonth()+1
-    if(monthOfYear<10) monthOfYear = "0"+monthOfYear
-    let fullYear = selectedDate.getFullYear()
-    console.log("selectedDate --> " + selectedDate)
-    console.log("dayOfMonth --> " + dayOfMonth)
-    console.log("monthOfYear --> " + monthOfYear)
-    console.log("fullYear --> " + fullYear)
-    let backendFormattedTime = fullYear+"-"+monthOfYear+"-"+dayOfMonth
-    console.log("backendFormattedTime --> " + backendFormattedTime)
+// function checkDateForCastleClicked(id,selectedDate){
+//     console.log("checkDateForCastleClicked--> id --> " + id)
+//     //let yearMonthDay = selectedDate.
+//     let dayOfMonth = selectedDate.getDate()
+//     let monthOfYear = selectedDate.getMonth()+1
+//     if(monthOfYear<10) monthOfYear = "0"+monthOfYear
+//     let fullYear = selectedDate.getFullYear()
+//     console.log("selectedDate --> " + selectedDate)
+//     console.log("dayOfMonth --> " + dayOfMonth)
+//     console.log("monthOfYear --> " + monthOfYear)
+//     console.log("fullYear --> " + fullYear)
+//     let backendFormattedTime = fullYear+"-"+monthOfYear+"-"+dayOfMonth
+//     console.log("backendFormattedTime --> " + backendFormattedTime)
 
-    CastleDataService.checkIfCastleBookedByDate(id,backendFormattedTime)
-        .then(response => console.log(response))
-}
+//     CastleDataService.checkIfCastleBookedByDate(id,backendFormattedTime)
+//         .then(response => console.log(response.data.bookedOrAvailable))
+
+//     DateCheckerComponent.setMessage="hello world"
+// }
 
 export default DateCheckerComponent

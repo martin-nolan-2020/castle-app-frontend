@@ -11,6 +11,7 @@ import ListCastlesComponent from './ListCastlesComponent.jsx'
 import ErrorComponent from './ErrorComponent.js'
 import CastleComponent from './CastleComponent.jsx'
 import DateCheckerComponent from './DateCheckerComponent.jsx'
+import MakeBookingComponent from './MakeBookingComponent.jsx'
 
 class CastleApp extends Component{
     render(){
@@ -29,6 +30,7 @@ class CastleApp extends Component{
                     <Route path="/login" component={LoginComponent}/>
                     <AuthenticatedRoute path="/castle/:id" component={CastleComponent}/>
                     <AuthenticatedRoute path="/date-checker/:id" component={DateCheckerComponent}/>
+                    <AuthenticatedRoute path="/make-booking/:id" component={MakeBookingComponent}/>
                     <AuthenticatedRoute path="/welcome/:name" component={WelcomeComponent}/>
                     <AuthenticatedRoute path="/castles" component={ListCastlesComponent}/>
                     <AuthenticatedRoute path="/logout" component={LogoutComponent}/>
