@@ -104,10 +104,15 @@ class WelcomeComponent extends Component{
     //.setState({castleBeanDesc:this.state.castleBeanDesc+" (for a hard coded date of 2017-02-23)"})
 
     handleError(error){
+        let errorMessage = ''
+
         //produces 'error: --> Error: Network Error' if it cannot connect to backend
         console.log("error: --> " + error)
+        console.log("error.response: --> " + error.response)
+        console.log("error.message: --> " + error.message)
         //produces true if it cannot connect to backend
         console.log(error.response==null)
+        //this.setState({backendError:error.response.data.msg+" (for a hard coded date of 2017-02-23)"})
 
         //connecting to backend ok:
         if(error.response!=null){
@@ -116,11 +121,18 @@ class WelcomeComponent extends Component{
             this.setState({showSomethingWentWrong:true})
             this.setState({castleBeanDesc:""})
             this.setState({castleBeanDesc:""})
+            if(error.response.data){
+                errorMessage+=error.response.data.message
+            }
         } 
         //not connecting to backend ok
-        else{
+        //else{
+            if(error.message){
+                errorMessage+=error.message
+            }
             console.log("is null!")
-        }
+        //}
+        this.setState({castleBeanDesc:errorMessage})
         // console.log(error.response.data.msg)
         // this.setState({backendError:error.response.data.msg+" (for a hard coded date of 2017-02-23)"})
         // this.setState({showSomethingWentWrong:true})

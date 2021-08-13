@@ -14,13 +14,24 @@ import axios from "axios";
 class CastleBeanPathVariableService{
 
     executeCastleBeanService(id){
+        let username = "username"
+        let password = "pw1"
+
+        let basicAuthHeader = 'Basic ' + window.btoa(username + ":" + password)
+
         // direct call to the CastleManager microservice on port 8100
         console.log("executeCastleBeanPathVariableService");
 
         //returns a Promise
-        //return axios.get(`http://localhost:8765/castles/${id}`)
+        return axios.get(`http://localhost:8765/castles/${id}`,
+            {
+                headers:{
+                    authorization: basicAuthHeader
+                }
+            }                
+        )
         //http://localhost:8765/castles-with-bookings-feign/1/date/2017-02-23
-        return axios.get(`http://localhost:8765/castles-with-bookings-feign/${id}/date/2017-02-23`)
+        //return axios.get(`http://localhost:8765/castles-with-bookings-feign/${id}/date/2017-02-23`)
     }
 
 }
