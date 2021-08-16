@@ -17,6 +17,8 @@ class CastleBeanPathVariableService{
         let username = "username"
         let password = "pw1"
 
+        //create an encoded header for config part axios.get request below
+                                              //btoa is base 64 encoding
         let basicAuthHeader = 'Basic ' + window.btoa(username + ":" + password)
 
         // direct call to the CastleManager microservice on port 8100

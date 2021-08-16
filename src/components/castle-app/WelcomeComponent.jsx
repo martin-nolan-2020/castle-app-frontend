@@ -110,8 +110,11 @@ class WelcomeComponent extends Component{
         console.log("error: --> " + error)
         console.log("error.response: --> " + error.response)
         console.log("error.message: --> " + error.message)
+
+        console.log("***")
         //produces true if it cannot connect to backend
-        console.log(error.response==null)
+        console.log(error.response==null )
+        console.log("***")
         //this.setState({backendError:error.response.data.msg+" (for a hard coded date of 2017-02-23)"})
 
         //connecting to backend ok:
